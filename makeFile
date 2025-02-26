@@ -1,0 +1,28 @@
+# Compiler and flags
+CXX = g++
+CXXFLAGS = -Wall -Wextra -std=c++17 -Iinclude  # Include headers from include/
+
+# Output directory
+BUILD_DIR = build
+EXECUTABLE = $(BUILD_DIR)/my_program
+
+# Find all .cpp files in src/ directory
+SRCS = $(wildcard src/*.cpp)
+OBJS = $(SRCS:src/%.cpp=$(BUILD_DIR)/%.o)
+
+# Default target
+all: $(EXECUTABLE)
+
+# Compile the final executable
+$(EXECUTABLE): $(OBJS)
+	@mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(EXECUTABLE)
+
+# Compile each .cpp file into a .o object file in build/
+$(BUILD_DIR)/%.o: src/%.cpp
+	@mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Clean build artifacts
+clean:
+	rm -rf $(BUILD_DIR)
