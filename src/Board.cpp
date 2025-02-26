@@ -3,6 +3,7 @@
 #include <string>
 #include <cmath>
 #include <cctype>
+#include <string>
         // Correct constructor using `this->`
 Board::Board(char board[8][8])
 {
@@ -13,6 +14,7 @@ Board::Board(char board[8][8])
     }
 }
 Board::Board(std::string fen){ //fen notation
+    // explanation: https://www.chess.com/terms/fen-chess
     int x = 0, y = 0, index = 0;
     while (y < 8)
     {
@@ -33,7 +35,7 @@ Board::Board(std::string fen){ //fen notation
             x++;
         }
         index++; 
-        std::cout << "x: " << x << " y: " << y << " index: " << index << " \n";
+        // std::cout << "x: " << x << " y: " << y << " index: " << index << " \n";
     }
 }
 
@@ -78,6 +80,36 @@ bool Board::isPossibleMove(int x1, int y1, int x2, int y2) const {
     return true; 
 }
 
+std::string Board::encodeToFen(){
+    std::string fen = "";
+
+    for (int y = 0; y < 8; y++) { 
+        int emptyCount = 0;
+
+        for (int x = 0; x < 8; x++) {
+            if (board[y][x] == '.') {
+                emptyCount++;
+            } else {
+                if (emptyCount > 0) {
+                    fen += std::to_string(emptyCount); 
+                    emptyCount = 0;
+                }
+                fen += board[y][x]; 
+            }
+        }
+
+        if (emptyCount > 0) {
+            fen += std::to_string(emptyCount);
+        }
+
+        if (y < 7) {
+            fen += "/";
+        }
+    }
+    fen += " w KQkq - 0 1"; 
+
+    return fen;
+}
 
 void Board::printBoard() const {
     for (int i = 0; i < 8; ++i) {

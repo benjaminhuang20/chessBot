@@ -23,7 +23,7 @@ public:
 
     bool isPossibleMove(int x1, int y1, int x2, int y2) const;
 
-
+    std::string encodeToFen(); 
 
     // Method to print the board
     void printBoard() const;
