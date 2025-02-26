@@ -19,6 +19,8 @@ public:
     // Method to get a character from a specific position
     char getCell(int row, int col) const;
 
+    bool isPossibleMove(int x1, int y1, int x2, int y2) const;
+
     // Method to print the board
     void printBoard() const;
 };
