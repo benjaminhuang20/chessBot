@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <cctype>
         // Correct constructor using `this->`
 Board::Board(char board[8][8])
 {
@@ -11,14 +12,38 @@ Board::Board(char board[8][8])
         }
     }
 }
-
-
-void Board::setCell(int row, int col, char set){
-    this->board[row][col] = set; 
+Board::Board(std::string fen){ //fen notation
+    int x = 0, y = 0, index = 0;
+    while (y < 8)
+    {
+        if(fen[index] == '/' || x >= 8){
+            y++;
+            x = 0;
+        }
+        else if (isdigit(fen[index])){
+            int num = fen[index] - '0';
+            for (int i = x; i < x + num; i++){
+                board[y][i] = '.';
+            }
+            x = x + num; 
+        }
+        else
+        { // fen[index] is a character
+            board[y][x] = fen[index];
+            x++;
+        }
+        index++; 
+        std::cout << "x: " << x << " y: " << y << " index: " << index << " \n";
+    }
 }
 
-char Board::getCell(int row, int col) const{
-    return this->board[row][col]; 
+
+void Board::setCell(int x, int y, char set){
+    this->board[y][x] = set; 
+}
+
+char Board::getCell(int x, int y) const{
+    return this->board[y][x]; 
 }
 
 bool Board::isPossibleMove(int x1, int y1, int x2, int y2) const {
@@ -30,6 +55,10 @@ bool Board::isPossibleMove(int x1, int y1, int x2, int y2) const {
                 if(board[i][x1] != '.'){
                     return false; 
                 }
+            }
+      
+            if(isupper(board[y1][x1]) == isupper(board[y2][x2])){ //if these are the same color, a piece cannot take a piece of the same color. 
+                return false; 
             }
         }
         else if (y1 == y2)
@@ -48,6 +77,7 @@ bool Board::isPossibleMove(int x1, int y1, int x2, int y2) const {
 
     return true; 
 }
+
 
 void Board::printBoard() const {
     for (int i = 0; i < 8; ++i) {
