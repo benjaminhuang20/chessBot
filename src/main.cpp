@@ -10,7 +10,7 @@ int main() {
         {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
         {'.', '.', '.', '.', '.', '.', '.', '.'},
         {'.', '.', '.', '.', '.', '.', '.', '.'},
-        {'.', '.', '.', '.', 'r', '.', '.', '.'},
+        {'.', '.', '.', 'b', 'r', '.', '.', '.'},
         {'.', '.', '.', '.', '.', '.', '.', '.'},
         {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
         {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'},
@@ -20,9 +20,12 @@ int main() {
     Board a(tempBoard);
 
 
-    std::cout << a.getCell(4,5); 
-    std::cout << a.isPossibleMove(4, 4, 0, 4) << std::endl;
+    // std::cout << a.getCell(4,5); 
+    // std::cout << a.isPossibleMove(4, 4, 0, 4) << std::endl;
+    std::cout << a.isPossibleMove(4, 3, 0, 4) << std::endl;
     a.possibleMoves(4, 4);
+    std::cout << "\n"; 
+    a.possibleMoves(3, 4);
     // a.printBoard();
     // std::cout << a.encodeToFen(); 
     // std::cout << a.isPossibleMove(7,0, 5,0);
