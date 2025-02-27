@@ -48,31 +48,55 @@ char Board::getCell(int x, int y) const{
     return this->board[y][x]; 
 }
 
+void Board::possibleMoves(int x, int y){
+    char temp[8][8];
+   
+    for (int tempY = 0; tempY < 8; tempY++)
+    {
+        for (int tempX = 0; tempX < 8; tempX++)
+        {
+            temp[tempY][tempX] = board[tempY][tempX];
+            if (isPossibleMove(x, y, tempX, tempY))
+            {
+                temp[tempY][tempX] = '*';
+            }
+        }
+    }
+
+    Board tempBoard(temp);
+    tempBoard.printBoard(); 
+}
 bool Board::isPossibleMove(int x1, int y1, int x2, int y2) const {
     char piece = board[y1][x1]; //Piece to move
     if(piece == 'R' || piece == 'r'){
         //first needs to make sure that same x or y bcuz rook goes horizontal or vertical
         if(x1 == x2){
             for (int i = std::min(y1, y2) + 1; i < std::max(y1,y2); i++){
-                if(board[i][x1] != '.'){
+                if(board[i][x1] != '.'){ 
                     return false; 
                 }
+                // std::cout << "i: " << i << " x1:" << x1 << std::endl; 
             }
-      
-            if(isupper(board[y1][x1]) == isupper(board[y2][x2])){ //if these are the same color, a piece cannot take a piece of the same color. 
-                return false; 
-            }
+
         }
         else if (y1 == y2)
         {
             for (int i = std::min(x1, x2) + 1; i < std::max(x1,x2); i++){
                 if(board[y1][i] != '.'){
+                    std::cout << "it came from here" << i << " " << board[y1][i] << std::endl;
                     return false; 
                 }
             }
+
+            
         }
         else
         {
+            return false;
+        }
+
+        if (isupper(board[y1][x1]) == isupper(board[y2][x2]) && board[y2][x2] != '.')
+        { // if these are the same color, a piece cannot take a piece of the same color.
             return false;
         }
     }
