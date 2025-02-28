@@ -9,8 +9,8 @@ int main() {
         {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'},
         {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
         {'.', '.', '.', '.', '.', '.', '.', '.'},
-        {'.', '.', '.', '.', '.', '.', '.', '.'},
-        {'.', '.', '.', 'b', 'r', '.', '.', '.'},
+        {'.', '.', '.', '.', 'k', '.', '.', '.'},
+        {'.', '.', '.', 'Q', 'q', '.', '.', '.'},
         {'.', '.', '.', '.', '.', '.', '.', '.'},
         {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
         {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'},
@@ -24,10 +24,13 @@ int main() {
     // std::cout << a.isPossibleMove(4, 4, 0, 4) << std::endl;
     std::cout << a.isPossibleMove(4, 3, 0, 4) << std::endl;
     a.possibleMoves(4, 4);
-    std::cout << "\n"; 
     a.possibleMoves(3, 4);
+    a.possibleMoves(2,3);
+    a.possibleMoves(1,0);
+    a.possibleMoves(4,3);
+    std::cout << a.isPossibleMove(1,0,3,1); 
     // a.printBoard();
-    // std::cout << a.encodeToFen(); 
+    // std::cout << a.encodeToFen();
     // std::cout << a.isPossibleMove(7,0, 5,0);
     return 0;
 }
