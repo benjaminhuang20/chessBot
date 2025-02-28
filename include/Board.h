@@ -7,8 +7,9 @@
 
 class Board {
 private:
-    char board[8][8]; 
-    int value;  // Private member variable
+    char board[8][8];
+    const int BLACK_START_RANK_INDEX = 1;
+    const int WHITE_START_RANK_INDEX = 6; 
 
 public:
     // Constructor
