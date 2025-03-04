@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 class Board {
 private:
@@ -23,9 +24,12 @@ public:
     char getCell(int row, int col) const;
 
     void possibleMoves(int x, int y);
+    std::vector<std::array<int, 2>> whatsAttacking(int x, int y, char piece); 
+    std::vector<std::array<int, 2>> possibleMovesEfficient(int x, int y);
     bool isPossibleMove(int x1, int y1, int x2, int y2) const;
 
-    std::string encodeToFen(); 
+    std::string encodeToFen();
+    std::string encodeMoveToPGN(int x1, int y1, int x2, int y2);
 
     // Method to print the board
     void printBoard() const;

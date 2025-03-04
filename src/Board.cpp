@@ -40,6 +40,7 @@ Board::Board(std::string fen){ //fen notation
 }
 
 
+
 void Board::setCell(int x, int y, char set){
     this->board[y][x] = set; 
 }
@@ -48,43 +49,11 @@ char Board::getCell(int x, int y) const{
     return this->board[y][x]; 
 }
 
-
-std::string Board::encodeToFen(){
-    std::string fen = "";
-
-    for (int y = 0; y < 8; y++) { 
-        int emptyCount = 0;
-
-        for (int x = 0; x < 8; x++) {
-            if (board[y][x] == '.') {
-                emptyCount++;
-            } else {
-                if (emptyCount > 0) {
-                    fen += std::to_string(emptyCount); 
-                    emptyCount = 0;
-                }
-                fen += board[y][x]; 
-            }
-        }
-
-        if (emptyCount > 0) {
-            fen += std::to_string(emptyCount);
-        }
-
-        if (y < 7) {
-            fen += "/";
-        }
-    }
-    fen += " w KQkq - 0 1"; 
-
-    return fen;
-}
-
 void Board::printBoard() const {
     char alphabet[] = "ABCDEFGH"; 
     for (int i = 0; i < 8; i++)
     {
-        std::cout << alphabet[8 - i - 1] << " "; //the top is H, then G,... for chess coordinates
+        std::cout << 8 - i << " "; //the top is H, then G,... for chess coordinates
         for (int j = 0; j < 8; ++j)
         {
             std::cout << board[i][j] << " "; // Copy each element individually
@@ -94,7 +63,7 @@ void Board::printBoard() const {
     std::cout << "  "; 
     for (int i = 0; i < 8; i++)
     {
-        std::cout << i + 1 << " ";
+        std::cout << alphabet[i] << " ";
     }
 
     std::cout << "\n\n"; 

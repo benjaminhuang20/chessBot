@@ -1,20 +1,20 @@
 #include <iostream>
+#include <vector>
+#include <array>
+#include <chrono>
 #include "functions.h"
 #include "../include/Board.h"
 
-#define 如果 if 
-int userInput()
-{
-}
+
 
 int main() {
     sayHello();
     char tempBoard[8][8] = {
         {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'},
         {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
-        {'.', '.', '.', '.', '.', '.', '.', '.'},
-        {'.', 'n', '.', 'Q', 'k', '.', '.', '.'},
-        {'.', '.', 'P', 'Q', 'q', '.', '.', '.'},
+        {'.', '.', '.', 'Q', '.', '.', '.', '.'},
+        {'.', 'n', '.', 'Q', 'p', '.', '.', '.'},
+        {'.', '.', 'P', 'Q', 'q', '.', 'r', '.'},
         {'e', '.', '.', '.', '.', '.', '.', '.'},
         {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
         {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'},
@@ -35,13 +35,32 @@ int main() {
     // a.possibleMoves(4,6);
 
     int tempX, tempY; 
-    while (true)
-    {
-        std::cout << "what moves do you want to do? X, Y\n";
-        std::cin >> tempX >> tempY; 
-        a.possibleMoves(tempX, tempY);
+    // while (true)
+    // {
+        // std::cout << "what moves do you want to do? X, Y\n";
+        // std::cin >> tempX >> tempY; 
+        // a.possibleMoves(tempX, tempY);
+    // }
+    std::cout << a.getCell(2,3);
+
+
+    auto start = std::chrono::high_resolution_clock::now(); // Start time
+    std::vector<std::array<int, 2>>  b = a.possibleMovesEfficient(3,2);
+
+    for (int i = 0; i < b.size(); i++){
+        a.setCell(b[i][0], b[i][1],'*');
     }
-    std::cout << a.isPossibleMove(1,0,3,1); 
+    std::cout << "\n";
+    a.printBoard();
+
+    auto end = std::chrono::high_resolution_clock::now(); // End timer
+    std::chrono::duration<double> duration = end - start; // Compute duration
+
+    std::cout << "Execution time for Efficient: " << duration.count() << " seconds\n";
+
+
+    std::cout << a.encodeMoveToPGN(2, 3, 3, 4);
+    // std::cout << a.isPossibleMove(1, 0, 3, 1);
     // a.printBoard();
     // std::cout << a.encodeToFen();
     // std::cout << a.isPossibleMove(7,0, 5,0);
